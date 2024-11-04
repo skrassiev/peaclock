@@ -141,7 +141,8 @@ void Peaclock::draw_clock(std::ostringstream& buf)
 
       if (_inverse) {
         if ((cfg.mode == Mode::timer && !timer) || (cfg.mode == Mode::stopwatch && !stopwatch)) {
-          type = Type::off;
+          if (type == Type::on)
+            type = Type::off;
         }
       }
 
