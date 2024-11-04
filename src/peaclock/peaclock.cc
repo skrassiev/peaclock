@@ -112,6 +112,9 @@ void Peaclock::init_ctx(std::size_t const width, std::size_t const height)
 
 void Peaclock::draw_clock(std::ostringstream& buf)
 {
+
+  _inverse = !_inverse;
+
   if (cfg.view == View::date)
   {
     return;
@@ -134,7 +137,13 @@ void Peaclock::draw_clock(std::ostringstream& buf)
     // draw blocks
     for (std::size_t i = 0; i < _ctx.buffer.size(); ++i)
     {
-      auto const type = _ctx.buffer.at(i);
+      auto type = _ctx.buffer.at(i);
+
+      if (_inverse) {
+        if ((cfg.mode == Mode::timer && !timer) || (cfg.mode == Mode::stopwatch && !stopwatch)) {
+          type = Type::off;
+        }
+      }
 
       switch (type)
       {
@@ -293,7 +302,7 @@ void Peaclock::render(std::size_t const width, std::size_t const height, std::os
   init_ctx(width, height);
 
   // draw_background(width, height, buf);
-  // draw_title(buf);
+  // draw_date(buf);
   draw_clock(buf);
   draw_date(buf);
 }

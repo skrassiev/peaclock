@@ -584,6 +584,10 @@ private:
   void draw_clock(std::ostringstream& buf);
   void draw_ascii(std::ostringstream& buf);
   void draw_date(std::ostringstream& buf);
+
+  // inverse character rendering. Used in a timer and stopwatch
+  // modes when paused.
+  bool _inverse = {false};
 };
 
 #endif // PEACLOCK_HH
